@@ -14,7 +14,13 @@
  * limitations under the License.
  */
 
+/**
+ * Modified by mizchi
+ * https://github.com/mizchi/worker-dom/blob/7f8b0295b757f1988e853c79858af682e850c312/config/rollup.config.js#L19-L21
+ */
+
 import MainThreadBuilds from './rollup.main-thread.js';
 import WorkerThreadBuilds from './rollup.worker-thread.js';
+import LibBuilds from './rollup.lib.js';
 
-export default [...MainThreadBuilds, ...WorkerThreadBuilds];
+export default [...MainThreadBuilds, ...WorkerThreadBuilds, ...LibBuilds];
