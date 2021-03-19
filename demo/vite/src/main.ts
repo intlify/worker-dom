@@ -2,13 +2,11 @@ import { attachWorker } from '@intlify/worker-dom/dist/lib/main.mjs'
 import Worker from './worker?worker'
 
 ;(async () => {
-  const el = document.getElementById('app')
-  const worker = new Worker()
-  const exportedWorker = await attachWorker(el, worker)
+  const worker = await attachWorker(document.body, new Worker())
 
   const button = document.querySelector('button')
-  button.onclick = async (ev) => {
-    const val = await exportedWorker.callFunction('addElement', 'hello wokrer-dom')
+  button!.onclick = async () => {
+    const val = await worker.callFunction('addElement', 'hello wokrer-dom')
     console.log('result', val)
   }
 })();

@@ -23,11 +23,14 @@
 import { hydrate, workerDOM } from './index';
 import { TransferrableKeys } from '../transfer/TransferrableKeys';
 import { HydrateableNode } from '../transfer/TransferrableNodes';
-import { callFunctionMessageHandler } from './function';
-export { exportFunction } from './function'
+import { callFunctionMessageHandler, exportFunction } from './function';
 
 // @ts-ignore
 self.window = self;
+
+export function exportFunctions(fns: Function[]): void {
+  fns.map(fn => exportFunction(fn.name, fn));
+}
 
 let _resolve: Function | null = null;
 export const ready = new Promise((resolve) => {
@@ -55,7 +58,7 @@ function onMessageInit(ev: MessageEvent) {
     });
     _resolve && _resolve();
   } else {
-    callFunctionMessageHandler(ev, workerDOM.document)
+    callFunctionMessageHandler(ev, workerDOM.document);
   }
 }
 

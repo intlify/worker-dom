@@ -2,8 +2,8 @@
 
 ## What's difference from Original?
 
-- Define the useful APIs from [@mizchi/worker-dom](https://github.com/mizchi/worker-dom)
-- Can be modified the DOM with your Web Worker
+- Modify & Inspire useful APIs from [@mizchi/worker-dom](https://github.com/mizchi/worker-dom)
+- Your Web Wroker can be used as the WorkerDOM
 
 ### Installation
 
@@ -12,14 +12,18 @@ npm install @intlify/worker-dom --save
 ```
 
 ### APIs
-- `attachWorker(element: HTMLElement, worker: Worker): Promise<ExportedWoker>` on main-thread
-- `ready` on worker to connect `attachWorker`.
+- `attachWorker(element: HTMLElement, worker: Worker): Promise<ExportedWoker>`
+  - Attach your web worker on main-thread
+- `ready` on worker to connect `attachWorker`
+  - Wait for the WorkerDOM to be ready by `attachWorker`
+- `exportFunctions`
+  - Export functions in the WorkerDOM that can be called from the main-thread
 
 ### Example for Vite
 
 ```js
 // worker.js
-import { ready, exportFunction } from '@intlify/worker-dom/dist/lib/worker';
+import { ready, exportFunctions } from '@intlify/worker-dom/dist/lib/worker'
 
 // define your functions on worker
 function add(a, b) {
@@ -31,22 +35,22 @@ function add(a, b) {
 }
 
 // export worker functions
-[add].map(fn => exportFunction(fn.name, fn))
+exportFunctions([add])
 
 // wait for ready
-await ready;
+await ready
 
 // should keep same content with main-thread on init.
-document.body.firstChild.textContent = 'hello from worker mutate';
+document.body.firstChild.textContent = 'hello from worker mutate'
 ```
 
 ```js
 // main.js
-import { attachWorker } from '@intlify/worker-dom/dist/lib/main';
+import { attachWorker } from '@intlify/worker-dom/dist/lib/main'
 import Worker from './woker?worker';
 
 // attach worker to dom
-const worker = await attachWorker(document.querySelector('#root'), new Worker());
+const worker = await attachWorker(document.querySelector('#root'), new Worker())
 
 // call function that is exported from worker
 const result = await woker.callFunction('add', 1, 1)
