@@ -16,7 +16,7 @@ npm install @intlify/worker-dom --save
   - Attach your web worker on main-thread
 - `ready` on worker to connect `attachWorker`
   - Wait for the WorkerDOM to be ready by `attachWorker`
-- `exportFunctions`
+- `exportFunctions(functions: Function[] | Record<string, Function>): void`
   - Export functions in the WorkerDOM that can be called from the main-thread
 
 ### Example for Vite

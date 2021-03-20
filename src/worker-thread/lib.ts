@@ -28,8 +28,16 @@ import { callFunctionMessageHandler, exportFunction } from './function';
 // @ts-ignore
 self.window = self;
 
-export function exportFunctions(fns: Function[]): void {
-  fns.map(fn => exportFunction(fn.name, fn));
+const isObject = (val: unknown): val is Record<any, any> => val !== null && typeof val === 'object'
+
+export function exportFunctions(fns: Function[] | Record<string, Function>): void {
+  if (Array.isArray(fns)) {
+    fns.map(fn => exportFunction(fn.name, fn));
+  } else if (isObject(fns)) {
+    Object.keys(fns).forEach(k => exportFunction(k, fns[k]))
+  } else {
+    throw new Error('unexpected type')
+  }
 }
 
 let _resolve: Function | null = null;
