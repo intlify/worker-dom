@@ -28,7 +28,10 @@ export type StorageInit = { storage: Storage | Promise<StorageValue>; errorMsg: 
 export class WorkerContext {
   private [TransferrableKeys.worker]: Worker;
   private nodeContext: NodeContext;
-  private config: WorkerDOMConfiguration;
+  // NOTE:
+  // Modified by kazuya kawaguchi
+  // Additional DOM props serialization for Intlify Project
+  public config: WorkerDOMConfiguration;
 
   /**
    * @param baseElement

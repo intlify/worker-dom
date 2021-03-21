@@ -40,6 +40,7 @@ export function attachWorker(
   config: InboundWorkerDOMConfiguration = {
     authorURL: '[external-instance]',
     domURL: '[external-instance]',
+    props: ['__INTLIFY_META__'],
   },
 ): Promise<ExportedWorker> {
   const stringContext = new StringContext();

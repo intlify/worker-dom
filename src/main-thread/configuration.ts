@@ -54,6 +54,11 @@ export interface InboundWorkerDOMConfiguration {
   onSendMessage?: (message: MessageToWorker) => void;
   // Called after a message is received from the worker.
   onReceiveMessage?: (message: MessageFromWorker) => void;
+
+  // NOTE:
+  // Modified by kazuya kawaguchi
+  // Additional DOM props serialization for Intlify Project
+  props?: string[]
 }
 
 export interface WorkerDOMConfiguration {
@@ -82,6 +87,11 @@ export interface WorkerDOMConfiguration {
   onSendMessage?: (message: MessageToWorker) => void;
   // Called after a message is received from the worker.
   onReceiveMessage?: (message: MessageFromWorker) => void;
+
+  // NOTE:
+  // Modified by kazuya kawaguchi
+  // Additional DOM props serialization for Intlify Project
+  props?: string[]
 }
 
 export function normalizeConfiguration(config: InboundWorkerDOMConfiguration): WorkerDOMConfiguration {

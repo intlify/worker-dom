@@ -55,6 +55,14 @@ function createHydrateableNode(
   if (NODES_ALLOWED_TO_TRANSMIT_TEXT_CONTENT.includes(element.nodeType) && (element as Text).textContent !== null) {
     hydrated[TransferrableKeys.textContent] = minimizeString(element.textContent as string);
   }
+  // NOTE:
+  // Modified by kazuya kawaguchi
+  // Additional DOM props serialization for Intlify Project
+  if (workerContext.config && workerContext.config.props) {
+    workerContext.config.props.forEach(prop => {
+      hydrated[prop] = element[prop]
+    })
+  }
   applyDefaultInputListener(workerContext, element);
   sendValueChangeOnAttributeMutation(workerContext, element);
   return hydrated;

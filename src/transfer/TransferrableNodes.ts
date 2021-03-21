@@ -43,6 +43,10 @@ export interface HydrateableNode {
   [TransferrableKeys.namespaceURI]?: number;
   [TransferrableKeys.attributes]?: Array<[number, number, number]>;
   [TransferrableKeys.childNodes]?: Array<HydrateableNode>;
+  // NOTE:
+  // Modified by kazuya kawaguchi
+  // Additional DOM props serialization for Intlify Project
+  [prop: string]: unknown;
 }
 
 // If a Node has been transferred once already to main thread then we need only pass its index.
