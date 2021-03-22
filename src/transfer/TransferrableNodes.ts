@@ -46,7 +46,7 @@ export interface HydrateableNode {
   // NOTE:
   // Modified by kazuya kawaguchi
   // Additional DOM props serialization for Intlify Project
-  [prop: string]: unknown;
+  [TransferrableKeys.__INTLIFY_META__]?: unknown
 }
 
 // If a Node has been transferred once already to main thread then we need only pass its index.

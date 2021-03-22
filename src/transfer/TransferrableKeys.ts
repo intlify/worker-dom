@@ -96,4 +96,8 @@ export const enum TransferrableKeys {
   functionArguments = 78,
   // This must always be the last numerically ordered Key, for testing purposes.
   END = 78,
+  // NOTE:
+  // Modified by kazuya kawaguchi
+  // Additional DOM props serialization for Intlify Project
+  __INTLIFY_META__ = 20210322
 }

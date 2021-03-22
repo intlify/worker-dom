@@ -63,6 +63,10 @@ export abstract class Node {
   private [TransferrableKeys.handlers]: {
     [index: string]: EventHandler[];
   } = {};
+  // NOTE:
+  // Modified by kazuya kawaguchi
+  // Additional DOM props serialization for Intlify Project
+  public __INTLIFY_META__: unknown = '';
 
   constructor(nodeType: NodeType, nodeName: NodeName, ownerDocument: Node | null, overrideIndex?: number) {
     this.nodeType = nodeType;

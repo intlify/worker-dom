@@ -58,11 +58,7 @@ function createHydrateableNode(
   // NOTE:
   // Modified by kazuya kawaguchi
   // Additional DOM props serialization for Intlify Project
-  if (workerContext.config && workerContext.config.props) {
-    workerContext.config.props.forEach(prop => {
-      hydrated[prop] = element[prop]
-    })
-  }
+  hydrated[TransferrableKeys.__INTLIFY_META__] = element.__INTLIFY_META__
   applyDefaultInputListener(workerContext, element);
   sendValueChangeOnAttributeMutation(workerContext, element);
   return hydrated;

@@ -109,14 +109,29 @@ export class Document extends Element {
   public [TransferrableKeys.hydrateNode](strings: Array<string>, skeleton: HydrateableNode): Node {
     switch (skeleton[TransferrableKeys.nodeType]) {
       case NodeType.TEXT_NODE:
-        return new Text(strings[skeleton[TransferrableKeys.textContent] as number], this, skeleton[TransferrableKeys.index]);
+        // NOTE:
+        // Modified by kazuya kawaguchi
+        // Additional DOM props serialization for Intlify Project
+        const textNode = new Text(strings[skeleton[TransferrableKeys.textContent] as number], this, skeleton[TransferrableKeys.index]);
+        textNode.__INTLIFY_META__ = skeleton[TransferrableKeys.__INTLIFY_META__];
+        return textNode;
       case NodeType.COMMENT_NODE:
-        return new Comment(strings[skeleton[TransferrableKeys.textContent] as number], this, skeleton[TransferrableKeys.index]);
+        // NOTE:
+        // Modified by kazuya kawaguchi
+        // Additional DOM props serialization for Intlify Project
+        const commentNode = new Comment(strings[skeleton[TransferrableKeys.textContent] as number], this, skeleton[TransferrableKeys.index]);
+        commentNode.__INTLIFY_META__ = skeleton[TransferrableKeys.__INTLIFY_META__];
+        return commentNode;
       default:
         const namespaceURI: string = strings[skeleton[TransferrableKeys.namespaceURI] as number] || HTML_NAMESPACE;
         const localName: string = strings[skeleton[TransferrableKeys.localOrNodeName]];
         const constructor = NS_NAME_TO_CLASS[`${namespaceURI}:${localName}`] || HTMLElement;
         const node = new constructor(NodeType.ELEMENT_NODE, localName, namespaceURI, this, skeleton[TransferrableKeys.index]);
+
+        // NOTE:
+        // Modified by kazuya kawaguchi
+        // Additional DOM props serialization for Intlify Project
+        node.__INTLIFY_META__ = skeleton[TransferrableKeys.__INTLIFY_META__];
 
         (skeleton[TransferrableKeys.attributes] || []).forEach((attribute) =>
           // AttributeNamespaceURI = strings[attribute[0]] !== 'null' ? strings[attribute[0]] : HTML_NAMESPACE

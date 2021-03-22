@@ -14,7 +14,6 @@ npm install @intlify/worker-dom --save
 ### APIs
 - `attachWorker(element: HTMLElement, worker: Worker, config: InboundWorkerDOMConfiguration): Promise<ExportedWoker>`
   - Attach your web worker on main-thread
-  - Extend `props` optinal DOM props serializable options to `config` params
 - `ready` on worker to connect `attachWorker`
   - Wait for the WorkerDOM to be ready by `attachWorker`
 - `exportFunctions(functions: Function[] | Record<string, Function>): void`
